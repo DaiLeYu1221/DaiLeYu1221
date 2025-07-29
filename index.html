@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文宇香香工作室 - 官网</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --accent-light: #88ffdb;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #0f1c38 30%, #1a2a4d 70%, #1d3063 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏样式 */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 25, 47, 0.85);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #4cceac);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 介绍区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #e6f1ff, #a8b2d1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title span {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* 关于工作室 */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: rgba(17, 34, 64, 0.5);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* 项目展示 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 255, 218, 0.4);
+        }
+
+        .project-img {
+            height: 250px;
+            background: linear-gradient(45deg, #1a2a4d, #0a192f);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .project-card:hover .project-img::before {
+            left: 100%;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-title i {
+            color: var(--accent);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* 联系区域 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-form {
+            background: rgba(17, 34, 64, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(10, 25, 47, 0.3);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            padding: 20px 0;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .info-text h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .info-text p {
+            color: var(--text-secondary);
+        }
+
+        /* 页脚 */
+        footer {
+            background: rgba(10, 15, 30, 0.9);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(136, 146, 176, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div id="particles-js"></div>
+    
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="logo-text">文宇香香工作室</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#home">首页</a>
+                    <a href="#about">关于我们</a>
+                    <a href="#projects">项目展示</a>
+                    <a href="#contact">联系我们</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 介绍区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-subtitle">创新 · 探索 · 协作</div>
+                <h1 class="hero-title">文宇香香工作室<br>
+                <p class="hero-description">
+                    我们是由热爱科技的学生组成的创新团队，致力于探索前沿技术、开发创新项目、培养技术人才。在这里，创意与技术碰撞，梦想与现实交汇。
+                </p>
+                <a href="#about" class="cta-button">了解更多</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 关于工作室 -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <p class="section-subtitle">探索技术前沿，培养创新思维</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>文宇香香工作室成立于2025年。</p>
+                    <p>工作室以"创新、探索、协作"为核心价值观。我们相信技术的力量可以改变世界，而改变从每一个创意开始。</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">工作室成员</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">完成项目</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="tech-graphic">
+                        <div class="circle" style="width: 300px; height: 300px; border-radius: 50%; border: 2px solid var(--accent); position: relative;">
+                            <div class="tech-icon" style="position: absolute; top: 20%; left: 20%;">
+                                <i class="fas fa-microchip" style="font-size: 2rem; color: var(--accent);"></i>
+                            </div>
+                            <div class="tech-icon" style="position: absolute; top: 20%; right: 20%;">
+                                <i class="fas fa-code" style="font-size: 2rem; color: var(--accent);"></i>
+                            </div>
+                            <div class="tech-icon" style="position: absolute; bottom: 20%; left: 20%;">
+                                <i class="fas fa-robot" style="font-size: 2rem; color: var(--accent);"></i>
+                            </div>
+                            <div class="tech-icon" style="position: absolute; bottom: 20%; right: 20%;">
+                                <i class="fas fa-brain" style="font-size: 2rem; color: var(--accent);"></i>
+                            </div>
+                            <div class="tech-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <i class="fas fa-lightbulb" style="font-size: 3rem; color: var(--accent);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 项目展示 -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title">项目展示</h2>
+            <p class="section-subtitle">创新思维的结晶，技术实践的成果</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-robot" style="font-size: 5rem; color: var(--accent);"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title"><i class="fas fa-cog"></i> 文件加密/解密工具</h3>
+                        <p class="project-desc">
+                            文件加密/解密工具，可以将文件的二进制进行加密/解密处理，保护隐私安全!
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <a href="https://github.com/DaiLeYu1221/File-Encryption-and-Decryption-Tool" class="cta-button">查看项目</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-robot" style="font-size: 5rem; color: var(--accent);"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title"><i class="fas fa-cog"></i>音频播放器</h3>
+                        <p class="project-desc">
+                            音频播放器，使用ffmpeg进行音频文件的播放，界面美观。
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <a href="https://github.com/DaiLeYu1221/Python-Audio-Player" class="cta-button">查看项目</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-robot" style="font-size: 5rem; color: var(--accent);"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title"><i class="fas fa-cog"></i>资源库</h3>
+                        <p class="project-desc">
+                            文宇香香在Github的资源中心，可以快速下载release。
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                        </div>
+                        <a href="https://github.com/DaiLeYu1221/wenyuxiangxiang-Resources" class="cta-button">查看项目</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 联系我们 -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">邮箱</h2>
+            <p class="section-subtitle">main@daileyu.dpdns.org 或 daileyu20221@outlook.com</p>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>文宇香香工作室</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        一个充满创造力的工作室。
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/DaiLeYu1221"><i class="fab fa-github"></i></a>
+                        <a href="https://space.bilibili.com/3461564273265329"><i class="fab fa-bilibili"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#projects">项目展示</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>资源</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://daileyu1221.github.io/wenyuxiangxiang-Resources/">文宇香香的Github资源库</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+			    <p>「代码如诗，创意如风」—— 文宇香香</p>
+                &copy; 2025 文宇香香工作室. 保留所有权利. | 创新 · 探索 · 协作
+            </div>
+			
+			<div style="text-align: center; margin: 20px;">
+  <span style="cursor: pointer;" onclick="alert('制作by文宇香香')">制作人员</span>
+      </div>
+        </div>
+    </footer>
+    
+    <!-- 粒子背景脚本 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // 初始化粒子背景
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#64ffda" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#64ffda",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 获取目标元素
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (!targetElement) return;
+        
+        // 获取目标位置
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        // 获取当前位置
+        const startPosition = window.pageYOffset;
+        // 计算距离
+        const distance = targetPosition - startPosition;
+        // 设置动画持续时间（毫秒）
+        const duration = 1000; // 1秒
+        // 记录开始时间
+        const startTime = performance.now();
+        
+        // 动画函数
+        function animation(currentTime) {
+            // 计算已过去的时间
+            const timeElapsed = currentTime - startTime;
+            // 使用缓动函数计算进度（easeInOutQuad）
+            const progress = Math.easeInOutQuad(timeElapsed, startPosition, distance, duration);
+            // 设置滚动位置
+            window.scrollTo(0, progress);
+            // 继续动画直到完成
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        }
+        
+        // 定义缓动函数
+        Math.easeInOutQuad = function(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        };
+        
+        // 开始动画
+        requestAnimationFrame(animation);
+    });
+});
+        
+        // 滚动动画
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(10, 25, 47, 0.95)';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.background = 'rgba(10, 25, 47, 0.85)';
+            }
+        });
+    </script>
+</body>
+</html>
